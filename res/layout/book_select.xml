@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#ccffcc"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:textSize="20sp"
+            android:textColor="#00dd00"
+            android:text="图书查找"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <LinearLayout
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <EditText
+                android:id="@+id/what_select"
+                android:layout_width="0dp"
+                android:textColor="#000000"
+                android:background="#dddddd"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+        <Spinner
+                android:layout_marginLeft="5dp"
+                android:id="@+id/what_way"
+                android:layout_weight="1"
+                android:background="#dddddd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+        </Spinner>
+        <Button
+                android:id="@+id/btn_select"
+                android:text="查找"
+                android:textColor="#00ff00"
+                android:layout_weight="1"
+                android:background="#ccffcc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </ListView>
+</LinearLayout>

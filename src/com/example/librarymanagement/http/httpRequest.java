@@ -14,13 +14,17 @@ public class httpRequest {
 
     FinalHttp finalHttp;
 
-    public httpRequest() {
-        finalHttp = new FinalHttp();
+    public FinalHttp getHttpRequest(){
+        if (finalHttp == null){
+            finalHttp = new FinalHttp();
+        }
+        return finalHttp;
     }
 
     public void selectByName(final Handler handler, String str){
         AjaxParams params = new AjaxParams();
         params.put("book_name",str);
+        finalHttp = getHttpRequest();
         finalHttp.configTimeout(3000);
         finalHttp.post("http://192.168.0.100:8080/servlets/selectByName",params,new AjaxCallBack<Object>() {
             @Override
@@ -47,6 +51,7 @@ public class httpRequest {
     public void selectByAuthor(final Handler handler, String str){
         AjaxParams params = new AjaxParams();
         params.put("author",str);
+        finalHttp = getHttpRequest();
         finalHttp.configTimeout(3000);
         finalHttp.post("http://192.168.0.100:8080/servlets/selectByAuthor",params,new AjaxCallBack<Object>() {
             @Override
@@ -73,6 +78,7 @@ public class httpRequest {
     public void selectByBookClassName(final Handler handler,String str){
         AjaxParams params = new AjaxParams();
         params.put("BookClassName",str);
+        finalHttp = getHttpRequest();
         finalHttp.configTimeout(3000);
         finalHttp.post("http://192.168.0.100:8080/servlets/selectBookClassName",params,new AjaxCallBack<Object>() {
             @Override

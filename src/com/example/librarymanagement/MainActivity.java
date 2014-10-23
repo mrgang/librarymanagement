@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import com.example.librarymanagement.fragments.BookSelect;
+import com.example.librarymanagement.fragments.LendHistory;
+import com.example.librarymanagement.fragments.LoginState;
 import com.example.librarymanagement.viewpagerindicator.TabPageIndicator;
 
 import java.util.ArrayList;
@@ -27,8 +29,8 @@ public class MainActivity extends FragmentActivity {
         viewPager = (ViewPager)this.findViewById(R.id.viewpager);
         list = new ArrayList<Fragment>();
         list.add(new BookSelect());
-        list.add(new BookSelect());
-        list.add(new BookSelect());
+        list.add(new LendHistory());
+        list.add(new LoginState());
 
         viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(),list));
         viewPager.setCurrentItem(0);

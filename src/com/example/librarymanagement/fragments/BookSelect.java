@@ -33,10 +33,10 @@ public class BookSelect extends Fragment {
         @Override
         public void handleMessage(Message msg) {
             int flag = msg.what;
-            Log.i("BookSelect : 获取的查询结果是 ",msg.obj.toString());
-            if (flag == 0){
-                Toast.makeText(getActivity(),"数据获取失败", Toast.LENGTH_SHORT).show();
-            }else {
+            Log.i("BookSelect : 获取的查询结果是 ", msg.obj.toString());
+            if (flag == 0) {
+                Toast.makeText(getActivity(), "数据获取失败", Toast.LENGTH_SHORT).show();
+            } else {
                 String s = msg.obj.toString();
                 JSONArray array = null;
                 try {
@@ -47,12 +47,12 @@ public class BookSelect extends Fragment {
                 JSONObject object;
                 Book book = new Book();
                 List<Book> bookList = new ArrayList<Book>();
-                for (int i = 0; i<array.length();i++){
+                for (int i = 0; i < array.length(); i++) {
                     try {
                         object = array.getJSONObject(i);
                         book.set_id(object.getInt("_id"));
                         book.setAuthor(object.getString("author"));
-                        book.setBook_class_number(object.getString("book_class_name"));
+                        book.setBook_class_number(object.getString("book_class_number"));
                         book.setBook_name(object.getString("book_name"));
                         book.setContents(object.getString("contents"));
                         book.setPress(object.getString("press"));
@@ -65,7 +65,7 @@ public class BookSelect extends Fragment {
                         e.printStackTrace();
                     }
                 }
-                listView.setAdapter(new bookInfoAdapter(getActivity(),bookList));
+                listView.setAdapter(new bookInfoAdapter(getActivity(), bookList));
             }
 
             super.handleMessage(msg);

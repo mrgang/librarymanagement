@@ -14,8 +14,6 @@ import com.example.librarymanagement.http.httpRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-
 /**
  * Created by ligan_000 on 2014/10/22.
  */
@@ -32,7 +30,23 @@ public class LoginState extends Fragment {
 
     private LinearLayout layout1, layout2;
     private httpRequest http = new httpRequest();
-
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0) {
+                Toast.makeText(getActivity(), "链接服务器出错：" + msg.obj.toString(), Toast.LENGTH_SHORT).show();
+            } else if (msg.obj.toString().trim().equals("false")) {
+                Toast.makeText(getActivity(), "请检查用户名和密码", Toast.LENGTH_SHORT).show();
+            } else {
+                now_user = userName.getText().toString();
+                txt_user_name.setText(userName.getText().toString());
+                layout1.setVisibility(View.GONE);
+                layout2.setVisibility(View.VISIBLE);
+                String user_info = msg.obj.toString();
+                Log.i("用户登陆成功返回的结果：", user_info);
+            }
+        }
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_state, null);
@@ -55,19 +69,7 @@ public class LoginState extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HashMap msg = http.login(userName.getText().toString(), psw.getText().toString());
-                if (msg.get("what").equals("0")) {
-                    Toast.makeText(getActivity(), "链接服务器出错：" +msg.get("obj"), Toast.LENGTH_SHORT).show();
-                } else if (msg.get("obj").equals("0")) {
-                    Toast.makeText(getActivity(), "请检查用户名和密码", Toast.LENGTH_SHORT).show();
-                } else {
-                    now_user = userName.getText().toString();
-                    txt_user_name.setText(userName.getText().toString());
-                    layout1.setVisibility(View.GONE);
-                    layout2.setVisibility(View.VISIBLE);
-                    String user_info = msg.get("obj").toString();
-                    Log.i("用户登陆成功返回的结果：", user_info);
-                }
+                http.login(handler,userName.getText().toString(), psw.getText().toString());
             }
         });
 
@@ -80,7 +82,12 @@ public class LoginState extends Fragment {
 
             }
         });
-
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        if (now_user != null) txt_user_name.setText(now_user);
+        super.onResume();
     }
 }

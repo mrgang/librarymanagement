@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuItem;
 import com.example.librarymanagement.fragments.BookSelect;
 import com.example.librarymanagement.fragments.LendHistory;
 import com.example.librarymanagement.fragments.LoginState;
@@ -38,6 +40,24 @@ public class MainActivity extends FragmentActivity {
         indicator.setViewPager(viewPager);
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.addBook:
+                break;
+            case R.id.quit:
+                System.exit(0);
+                break;
+        }
+        return false;
     }
 
     public class MyFragmentPagerAdapter extends FragmentPagerAdapter

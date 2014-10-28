@@ -52,11 +52,14 @@ public class bookInfoAdapter extends BaseAdapter{
         TextView author = (TextView)view.findViewById(R.id.book_author);
         TextView total = (TextView)view.findViewById(R.id.book_total_count);
         TextView real = (TextView)view.findViewById(R.id.book_real_count);
+        TextView content = (TextView)view.findViewById(R.id.book_content);
 
+        int book_id = list.get(i).get_id();
         book_name.setText(list.get(i).getBook_name());
         author.setText(list.get(i).getAuthor());
-        total.setText(list.get(i).getTotal_count());
-        real.setText(list.get(i).getReal_count());
+        total.setText(list.get(i).getTotal_count()+"");
+        real.setText(list.get(i).getReal_count()+"");
+        content.setText(list.get(i).getContents());
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

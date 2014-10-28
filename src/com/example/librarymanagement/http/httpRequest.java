@@ -7,6 +7,8 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import java.util.HashMap;
+
 /**
  * Created by ligan_000 on 2014/10/22.
  */
@@ -103,33 +105,31 @@ public class httpRequest {
         });
     }
     //用户登录。
-    public Message login(String name,String psw){
+    public HashMap<String ,String> login(String name,String psw){
+        final HashMap<String,String> map = new HashMap<String, String>();
         AjaxParams params = new AjaxParams();
         params.put("stu_number_or_idcard",name);
         params.put("psword",psw);
         finalHttp = getFinalHttp();
         finalHttp.configTimeout(3000);
-        final Message msg = new Message();
         finalHttp.post("http://192.168.0.100:8080/servlets/userLogin",params,new AjaxCallBack<Object>() {
             @Override
             public void onSuccess(Object o) {
                 String result = o.toString();
                 Log.i("查找返回的结果： ",result);
-                msg.what = 1;
-                msg.obj = result;
-                msg.sendToTarget();
+                map.put("what","1");
+                map.put("obj",result);
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 Log.i("查找出错的原因： ",errorNo+"");
-                msg.what = 0;
-                msg.obj = errorNo;
-                msg.sendToTarget();
+                map.put("what","0");
+                map.put("obj",errorNo+"");
                 super.onFailure(t, errorNo, strMsg);
             }
         });
-        return msg;
+        return map;
     }
     //查找用户借阅历史。
     public void selectUserHistory(final Handler handler, String user_name){

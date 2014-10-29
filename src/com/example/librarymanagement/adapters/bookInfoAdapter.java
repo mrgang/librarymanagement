@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.librarymanagement.R;
+import com.example.librarymanagement.dialogs.BookDetailInfo;
 import com.example.librarymanagement.entities.Book;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class bookInfoAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         if (myView == null){
             myView = inflater.inflate(R.layout.book_info_item,null);
         }
@@ -54,7 +55,7 @@ public class bookInfoAdapter extends BaseAdapter{
         TextView real = (TextView)view.findViewById(R.id.book_real_count);
         TextView content = (TextView)view.findViewById(R.id.book_content);
 
-        int book_id = list.get(i).get_id();
+        final int myi = i;
         book_name.setText(list.get(i).getBook_name());
         author.setText(list.get(i).getAuthor());
         total.setText(list.get(i).getTotal_count()+"");
@@ -63,7 +64,7 @@ public class bookInfoAdapter extends BaseAdapter{
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(),view.getId()+"",Toast.LENGTH_SHORT).show();
+                new BookDetailInfo(view.getContext(),list.get(myi)).show();
             }
         });
         return view;

@@ -159,4 +159,33 @@ public class httpRequest {
             }
         });
     }
+
+    public void lendBook(final Handler handler,int book_id,String stu_number){
+        AjaxParams params = new AjaxParams();
+        params.put("book_id",book_id+"");
+        params.put("stu_number",stu_number);
+        finalHttp = getFinalHttp();
+        finalHttp.configTimeout(3000);
+        finalHttp.post("http://192.168.0.100:8080/servlets/lendBook",params,new AjaxCallBack<Object>() {
+            @Override
+            public void onSuccess(Object o) {
+                String result = o.toString();
+                Log.i("查找返回的结果： ",result);
+                Message msg = handler.obtainMessage();
+                msg.what = 1;
+                msg.obj = result;
+                msg.sendToTarget();
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("查找出错的原因： ",errorNo+"");
+                Message msg = handler.obtainMessage();
+                msg.what = 0;
+                msg.obj = errorNo;
+                msg.sendToTarget();
+                super.onFailure(t, errorNo, strMsg);
+            }
+        });
+    }
 }

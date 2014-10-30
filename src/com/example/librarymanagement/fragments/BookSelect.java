@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +46,11 @@ public class BookSelect extends Fragment {
                     e.printStackTrace();
                 }
                 JSONObject object;
-                Book book = new Book();
-                List<Book> bookList = new ArrayList<Book>();
+                Book book = null;
+                ArrayList<Book> bookList = new ArrayList<Book>();
                 for (int i = 0; i < array.length(); i++) {
                     try {
+                        book = new Book();
                         object = array.getJSONObject(i);
                         book.set_id(object.getInt("_id"));
                         book.setAuthor(object.getString("author"));
@@ -65,6 +67,7 @@ public class BookSelect extends Fragment {
                         e.printStackTrace();
                     }
                 }
+
                 listView.setAdapter(new bookInfoAdapter(getActivity(), bookList));
             }
 

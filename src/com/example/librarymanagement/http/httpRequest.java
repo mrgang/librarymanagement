@@ -132,9 +132,9 @@ public class httpRequest {
         });
     }
     //查找用户借阅历史。
-    public void selectUserHistory(final Handler handler, String user_name){
+    public void selectUserHistory(final Handler handler, String stu_number_or_idcard){
         AjaxParams params = new AjaxParams();
-        params.put("user_name",user_name);
+        params.put("stu_number_or_idcard",stu_number_or_idcard);
         finalHttp = getFinalHttp();
         finalHttp.configTimeout(3000);
         finalHttp.post("http://192.168.0.100:8080/servlets/selectUserLendHistory",params,new AjaxCallBack<Object>() {
@@ -170,20 +170,20 @@ public class httpRequest {
             @Override
             public void onSuccess(Object o) {
                 String result = o.toString();
-                Log.i("查找返回的结果： ",result);
-                Message msg = handler.obtainMessage();
+                Log.i("借阅返回的结果： ",result);
+                Message msg =Message.obtain(handler);
                 msg.what = 1;
                 msg.obj = result;
-                msg.sendToTarget();
+                handler.sendMessage(msg);
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 Log.i("查找出错的原因： ",errorNo+"");
-                Message msg = handler.obtainMessage();
+                Message msg = Message.obtain(handler);
                 msg.what = 0;
                 msg.obj = errorNo;
-                msg.sendToTarget();
+                handler.sendMessage(msg);
                 super.onFailure(t, errorNo, strMsg);
             }
         });

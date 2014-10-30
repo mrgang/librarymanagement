@@ -1,14 +1,17 @@
 package com.example.librarymanagement.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.example.librarymanagement.R;
+import com.example.librarymanagement.adapters.bookListAdapter;
 import com.example.librarymanagement.http.httpRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,11 +43,12 @@ public class LendHistory extends Fragment {
                 for (int i = 0; i < array.length(); i++) {
                     try {
                         list.add(array.get(i).toString());
+                        Log.i("list add ",list.get(i).toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list));
+                listView.setAdapter(new bookListAdapter(getActivity(),list));
             }
 
         }
@@ -75,9 +79,11 @@ public class LendHistory extends Fragment {
     public void onResume() {
         if (LoginState.now_user == null) {
             tip_of_login.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
             Toast.makeText(getActivity(), "亲！还没登录！", Toast.LENGTH_SHORT).show();
         } else {
             tip_of_login.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
             //加载用户的借阅历史。
             String now_user = LoginState.now_user;
             if (now_user != null) {

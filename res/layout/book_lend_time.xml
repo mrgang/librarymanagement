@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#ffffff"
+              android:padding="20dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+            android:id="@+id/tv1"
+            android:textColor="#00dd00"
+            android:textSize="18sp"
+            android:text="借阅时间 :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:paddingTop="10dp"
+            android:id="@+id/tv_lend_time"
+            android:text="201113148"
+            android:textColor="#00dd00"
+            android:textSize="18sp"
+            android:layout_below="@+id/tv1"
+            android:layout_toRightOf ="@+id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:paddingTop="10dp"
+            android:id="@+id/tv2"
+            android:layout_below="@+id/tv_lend_time"
+            android:text="应还时间 :"
+            android:textColor="#dd0000"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:paddingTop="10dp"
+            android:id="@+id/tv_return_time"
+            android:layout_below="@+id/tv2"
+            android:layout_toRightOf="@+id/tv2"
+            android:text="2454545"
+            android:textColor="#dd0000"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:paddingTop="15dp"
+            android:layout_below="@id/tv_return_time"
+            android:text="你 要 还 这 本 书 吗 ？"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</RelativeLayout>

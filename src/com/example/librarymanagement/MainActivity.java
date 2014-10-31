@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.example.librarymanagement.fragments.BookSelect;
 import com.example.librarymanagement.fragments.LendHistory;
 import com.example.librarymanagement.fragments.LoginState;
+import com.example.librarymanagement.viewpagerindicator.LinePageIndicator;
 import com.example.librarymanagement.viewpagerindicator.TabPageIndicator;
 
 import java.util.ArrayList;
@@ -21,7 +22,8 @@ import java.util.ArrayList;
 public class MainActivity extends FragmentActivity {
     private ViewPager viewPager;
     private ArrayList<Fragment> list;
-    private TabPageIndicator indicator;
+    private LinePageIndicator indicator;
+    private TabPageIndicator tindicator;
     private String[] titles = new String[]{"查找书籍","我的借阅","登录状态"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +38,11 @@ public class MainActivity extends FragmentActivity {
 
         viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(),list));
         viewPager.setCurrentItem(0);
-        indicator = (TabPageIndicator)this.findViewById(R.id.indicator);
+        indicator = (LinePageIndicator)this.findViewById(R.id.indicator);
+        tindicator = (TabPageIndicator)this.findViewById(R.id.tindicator);
+        tindicator.setViewPager(viewPager);
         indicator.setViewPager(viewPager);
-
+        indicator.setLineWidth(200);
 
     }
 

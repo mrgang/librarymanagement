@@ -1,6 +1,5 @@
 package com.example.librarymanagement.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,17 +14,19 @@ import com.example.librarymanagement.adapters.bookListAdapter;
 import com.example.librarymanagement.http.httpRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
-
+import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by ligan_000 on 2014/10/22.
  */
+//用户历史借阅列表。
 public class LendHistory extends Fragment {
 
     private ListView listView;
     private TextView tip_of_login;
-    private ImageView refresh;
+    public static ImageView refresh;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -34,15 +35,22 @@ public class LendHistory extends Fragment {
             } else {
                 String res = msg.obj.toString();
                 JSONArray array = null;
+                JSONObject object;
+                HashMap<String,String> map;
                 try {
                     array = new JSONArray(res);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                ArrayList<String> list = new ArrayList<String>();
+                ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>();
                 for (int i = 0; i < array.length(); i++) {
                     try {
-                        list.add(array.get(i).toString());
+                        object = array.getJSONObject(i);
+                        map = new HashMap<String, String>();
+                        map.put("book_class_name",object.getString("book_class_name"));
+                        map.put("lend_time",object.getString("lend_time"));
+                        map.put("return_time",object.getString("return_time"));
+                        list.add(map);
                         Log.i("list add ",list.get(i).toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -90,7 +98,6 @@ public class LendHistory extends Fragment {
                 httpRequest http = new httpRequest();
                 http.selectUserHistory(handler, now_user);
             }
-            //listView.setAdapter(new ArrayAdapter<String>());
 
         }
         super.onResume();

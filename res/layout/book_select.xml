@@ -21,6 +21,8 @@
         <EditText
                 android:id="@+id/what_select"
                 android:layout_width="0dp"
+                android:textSize="20sp"
+                android:hint="输入查询内容"
                 android:textColor="#000000"
                 android:background="#dddddd"
                 android:layout_height="wrap_content"
@@ -35,7 +37,9 @@
         </Spinner>
         <Button
                 android:id="@+id/btn_select"
-                android:text="查找"
+                android:text="查 找"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:textColor="#00ff00"
                 android:layout_weight="1"
                 android:background="#ccffcc"

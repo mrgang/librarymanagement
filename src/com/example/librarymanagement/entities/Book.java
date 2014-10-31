@@ -3,6 +3,7 @@ package com.example.librarymanagement.entities;
 /**
  * Created by ligan_000 on 2014/10/23.
  */
+//书本的实体类。
 public class Book {
     private int _id;
     private String book_class_number;

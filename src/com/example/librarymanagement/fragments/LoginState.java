@@ -17,15 +17,16 @@ import org.json.JSONObject;
 /**
  * Created by ligan_000 on 2014/10/22.
  */
+//用户登录状态。
 public class LoginState extends Fragment {
 
     public static String now_user = null;
-
+    private String name,qq;
     private EditText userName;
     private EditText psw;
     private Button login;
 
-    private TextView txt_user_name;
+    private TextView txt_user_name,stu_number,stu_qq;
     private Button btn_login_out;
 
     private LinearLayout layout1, layout2;
@@ -39,11 +40,26 @@ public class LoginState extends Fragment {
                 Toast.makeText(getActivity(), "请检查用户名和密码", Toast.LENGTH_SHORT).show();
             } else {
                 now_user = userName.getText().toString();
-                txt_user_name.setText(userName.getText().toString());
+                http.selectUserInfo(new Handler(){
+                    @Override
+                    public void handleMessage(Message msg) {
+                        super.handleMessage(msg);
+                        JSONObject object = null;
+                        try {
+                            object = new JSONObject(msg.obj.toString());
+                            name = object.getString("stu_name");
+                            now_user = object.getString("stu_number_or_idcard");
+                            qq = object.getString("qq");
+                            txt_user_name.setText(name);
+                            stu_number.setText(now_user);
+                            stu_qq.setText(qq);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },now_user);
                 layout1.setVisibility(View.GONE);
                 layout2.setVisibility(View.VISIBLE);
-                String user_info = msg.obj.toString();
-                Log.i("用户登陆成功返回的结果：", user_info);
             }
         }
     };
@@ -54,6 +70,8 @@ public class LoginState extends Fragment {
         psw = (EditText) view.findViewById(R.id.user_password);
         login = (Button) view.findViewById(R.id.btn_login_in);
         txt_user_name = (TextView)view.findViewById(R.id.txt_user_name);
+        stu_number = (TextView)view.findViewById(R.id.txt_stu_number);
+        stu_qq = (TextView)view.findViewById(R.id.txt_stu_qq);
         btn_login_out = (Button) view.findViewById(R.id.btn_login_out);
         layout1 = (LinearLayout) view.findViewById(R.id.login_out_state);
         layout2 = (LinearLayout) view.findViewById(R.id.login_in_state);
@@ -87,7 +105,11 @@ public class LoginState extends Fragment {
 
     @Override
     public void onResume() {
-        if (now_user != null) txt_user_name.setText(now_user);
+        if (now_user != null) {
+            txt_user_name.setText(name);
+            stu_number.setText(now_user);
+            stu_qq.setText(qq);
+        }
         super.onResume();
     }
 }

@@ -27,14 +27,14 @@ import java.util.List;
 /**
  * Created by ligan_000 on 2014/10/22.
  */
+//查询书籍的界面。
 public class BookSelect extends Fragment {
-    private static String[] itemp = {"书名", "作者", "分类号"};
+    private static String[] itemp = {"书 名", "作 者", "分类号"};
     private ListView listView;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             int flag = msg.what;
-            Log.i("BookSelect : 获取的查询结果是 ", msg.obj.toString());
             if (flag == 0) {
                 Toast.makeText(getActivity(), "数据获取失败", Toast.LENGTH_SHORT).show();
             } else {
@@ -63,7 +63,6 @@ public class BookSelect extends Fragment {
                         book.setTotal_count(object.getInt("total_count"));
                         bookList.add(book);
                     } catch (JSONException e) {
-
                         e.printStackTrace();
                     }
                 }

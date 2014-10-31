@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,20 +15,18 @@ import com.example.librarymanagement.R;
 import com.example.librarymanagement.entities.Book;
 import com.example.librarymanagement.fragments.LoginState;
 import com.example.librarymanagement.http.httpRequest;
-
 import java.util.ArrayList;
 
 /**
  * Created by ligan_000 on 2014/10/23.
  */
-//书籍信息的适配器。
+//书籍信息适配器。
 public class bookInfoAdapter extends BaseAdapter {
     private ArrayList<Book> list;
     private LayoutInflater inflater;
     Context context;
     private Book book;
     private TextView book_name, author, total, real, content;
-    //借阅结果处理handler。
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -35,8 +34,6 @@ public class bookInfoAdapter extends BaseAdapter {
                 Toast.makeText(context, "链接服务器出错" + msg.obj.toString(), Toast.LENGTH_SHORT).show();
             else if (msg.obj.toString().trim().equals("true")) {
                 Toast.makeText(context, "借阅成功", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(context, "借阅失败", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -66,8 +63,6 @@ public class bookInfoAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        final int id = book.get_id();
-        final AlertDialog dialog;
         view = inflater.inflate(R.layout.book_info_item, null);
         book = list.get(i);
 
@@ -82,7 +77,7 @@ public class bookInfoAdapter extends BaseAdapter {
         total.setText(book.getTotal_count() + "");
         real.setText(book.getReal_count() + "");
         content.setText(book.getContents());
-        //书籍详情对话框的视图。
+
         View myDialogView = View.inflate(context, R.layout.book_detail_info, null);
         ((TextView) myDialogView.findViewById(R.id.book_name)).setText(book.getBook_name());
         ((TextView) myDialogView.findViewById(R.id.author_name)).setText(book.getAuthor());
@@ -92,6 +87,7 @@ public class bookInfoAdapter extends BaseAdapter {
         ((TextView) myDialogView.findViewById(R.id.book_content)).setText(book.getContents());
         ((TextView) myDialogView.findViewById(R.id.txt_total_count)).setText(book.getTotal_count() + "");
         ((TextView) myDialogView.findViewById(R.id.txt_real_count)).setText(book.getReal_count() + "");
+         final int id =book.get_id();
         ((TextView) myDialogView.findViewById(R.id.tv_lend)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +95,7 @@ public class bookInfoAdapter extends BaseAdapter {
                 http.lendBook(handler, id, LoginState.now_user);
             }
         });
+        final AlertDialog dialog;
         dialog = new AlertDialog.Builder(context).setTitle("书籍详情").create();
         dialog.setView(myDialogView);
         view.setOnClickListener(new View.OnClickListener() {

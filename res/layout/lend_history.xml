@@ -2,7 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:background="#fdfdfd"
+              android:background="#ccffcc"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <RelativeLayout
@@ -38,6 +38,8 @@
             android:layout_height="wrap_content"/>
     <ListView
             android:id="@+id/lv_history"
+            android:layout_margin="10dp"
+            android:dividerHeight="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

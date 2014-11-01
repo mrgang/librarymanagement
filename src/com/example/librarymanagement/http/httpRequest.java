@@ -131,6 +131,35 @@ public class httpRequest {
             }
         });
     }
+    public void register(Handler handler, String number,String name,String psw,String qq){
+        AjaxParams params = new AjaxParams();
+        params.put("stu_number_or_idcard",number);
+        params.put("stu_name",name);
+        params.put("password",psw);
+        params.put("qq",qq);
+        finalHttp = getFinalHttp();
+        finalHttp.configTimeout(3000);
+        final Message msg = handler.obtainMessage();
+        finalHttp.post("http://192.168.0.100:8080/servlets/register",params,new AjaxCallBack<Object>() {
+            @Override
+            public void onSuccess(Object o) {
+                String result = o.toString();
+                Log.i("查找返回的结果： ",result);
+                msg.what = 1;
+                msg.obj = result;
+                msg.sendToTarget();
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("查找出错的原因： ",errorNo+"");
+                msg.what = 0;
+                msg.obj = errorNo;
+                msg.sendToTarget();
+                super.onFailure(t, errorNo, strMsg);
+            }
+        });
+    }
     //查找用户借阅历史。
     public void selectUserHistory(final Handler handler, String stu_number_or_idcard){
         AjaxParams params = new AjaxParams();

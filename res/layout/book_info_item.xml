@@ -69,7 +69,7 @@
                 android:id="@+id/book_real_count"
                 android:text="3"
                 android:padding="5dp"
-                android:textColor="#00ff00"
+                android:textColor="#ff0000"
                 android:textSize="15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
